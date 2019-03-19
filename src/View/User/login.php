@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <form name="inscription" method="post" action="/w2php502p1/index.php">
+  <form name="inscription" method="post" action="/login">
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
       <input name="mail" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">

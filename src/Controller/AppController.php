@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use Core\Controller;
+use Core\Controller as Controller;
 
 class AppController extends Controller
 {
@@ -11,8 +11,5 @@ class AppController extends Controller
         echo "je suis l'index Action";
     }
 
-    /* public function registrerAction()
-    {
-
-    } */
+  
 }
