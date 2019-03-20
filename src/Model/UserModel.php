@@ -1,21 +1,14 @@
 <?php
 
 namespace Model;
+use Core\Database;
 
 class UserModel
 {
     private $email;
     private $password;
 
-    public function __construct()
-    {
-        var_dump($_POST);
-        $this->connexion = new \PDO('mysql:host=localhost:8889; dbname=cake_php', 'root', 'root');
-        $this->email = $_POST['email'];
-        $this->password = $_POST['password'];
-    }
-
-    public function setPassword($password)
+    /* public function setPassword($password)
     {
         $this->password = $password;
     }
@@ -23,34 +16,21 @@ class UserModel
     public function setEmail($email)
     {
         $this->email = $email;
-    }
+    } */
 
     public function save()
     {
-        if (!empty($_POST)) {
-            extract($_POST);
-            $valid = true;
-            $email = htmlentities(trim($email));
-            $password = htlmlentities(trim($password));
+        $sql = new Database();
+        $query = $sql->connexion->prepare("INSERT INTO users (email, password) VALUES (:email , :password)");
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $query->bindParam(':email', $email);
+        $query->bindparam(':password',$password);
+        $query->execute();
+       var_dump($query->errorInfo());
 
-            if (empty($email)) {
-                $valid = false;
-                $erreur_email = 'Veuillez remplir ce champ';
-            }
-            if (empty($password)) {
-                $valid = false;
-                $erreur_password = 'Le mot de passe ne peut être laissé vide';
-            }
-
-            if ($valid) {
-                $query = $this->connexion->prepare("INSERT INTO users(email, password) VALUE ('$this->email' , '$this->password')");
-                $query->execute();
-                echo "Bravo vous êtes incrit";
-            } else {
-                echo " Sorry tu t'es planté dans l'inscription";
-            }
-        }
-    }
+        }          
+    
 
     public function loginAction()
     {
