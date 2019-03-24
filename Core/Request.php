@@ -4,13 +4,19 @@ namespace Core;
 
 class Request
 {
-    public function __construct()
+    private $data = array();
+    public function __construct($arg)
     {
-        foreach ($_POST as $key => $value) {
-            $this->{$key} = htmlspecialchars(stripcslashes(trim($value)));
+        foreach ($arg as $key => $value) {
+            $value = htmlspecialchars(stripcslashes(trim($value))); //on nettoie la value et on la re-stock
+            $this->data[$key] = $value;
         }
-        foreach ($_GET as $key => $value) {
-            $this->{$key} = htmlspecialchars(stripcslashes(trim($value)));
-        }
+        return $this->data;
+
+    }
+
+    public function getData()
+    {
+        return $this->data;
     }
 }

@@ -10,18 +10,14 @@ class Core
         // echo __CLASS__ . "[OK]" . PHP_EOL;
         // methode dynamique
         include './src/routes.php';
-        $url = str_replace(BASE_URI,  '', $_SERVER['REQUEST_URI']);
-        var_dump($url);
+        $url = str_replace(BASE_URI, '', $_SERVER['REQUEST_URI']);
 
         if (Router::get($url)) {
             $route = Router::get($url);
             $controller = "Controller\\" . ucFirst($route["controller"]) . "Controller";
-            var_dump($controller);
             $action = $route["action"] . 'Action';
-            echo "pass";
             $a = new $controller();
             $a->$action();
-
 
         } else {
             include './src/View/Error/404.php';
